@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}" />
+    <title>Stress Monitor</title>
+  </head>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+
+<body id="body">
+    <div class="container">
+      <nav class="navbar">
+        <div class="nav_icon" onclick="toggleSidebar()">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </div>
+        <div class="navbar__left">
+          <a class="active_link" href="/index1">Home</a>
+          <a class="active_link" href="/index1">Prediction</a>
+        </div>
+        <div class="navbar__right">
+          <a href="#">
+          </a>
+        </div>
+      </nav>
+
+      <main>
+        <div class="main__container">
+          <!-- MAIN TITLE STARTS HERE -->
+
+          
+
+<!-- CHARTS STARTS HERE -->
+      <div class="charts">
+
+        <!--Output 1 -->
+        <div class="charts__left">
+          <div class="charts__left__title">
+            <div id="{{ids[0]}}" style="width: 500px;">
+            </div>
+          </div>
+        </div>
+
+
+        <!--Output 2-->
+        <div class="charts__right">
+          <div class="charts__right__title">
+            <div id="{{ids[1]}}" style="width: 500px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+          
+        </div>
+      </main>
+
+      <div id="sidebar">
+        <div class="sidebar__title">
+          <div class="sidebar__img">
+            <img src="{{ url_for('static',filename='logo.jpg') }}" alt="logo" />
+            <h1>Stress Monitor</h1>
+          </div>
+          <i
+            onclick="closeSidebar()"
+            class="fa fa-times"
+            id="sidebarIcon"
+            aria-hidden="true"
+          ></i>
+        </div>
+
+        <div class="sidebar__menu">
+          <div class="sidebar__link active_menu_link">
+            <i class="fa fa-home"></i>
+            <a href="#">Dashboard</a>
+          </div>
+          
+          
+          <div class="sidebar__link">
+           <p>Figure 1:</p>
+           <p>Stress in a person watching a horror movie.</p>
+           <br>
+           <p>Figure 2:</p>
+           <p>Stress in a person simply walking.</p>
+          </div>
+          
+    
+         
+          
+       
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{{ url_for('static',filename='styles/script.js') }}"></script>
+    <script type="text/javascript">
+
+      var figures = {{figuresJSON | safe}};
+      var ids = {{ids | safe}};
+      for(var i in figures) {
+          Plotly.plot(ids[i],
+              figures[i] || {});
+      };
+  </script>
+  </body>
+</html>
